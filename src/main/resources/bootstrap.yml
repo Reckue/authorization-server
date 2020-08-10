@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: auth-server
+
+
+--- # cloud # ---
+server:
+  port: 9020
+
+spring:
+  profiles: cloud
+  data:
+    mongodb:
+      host: mongodb
+      database: account-cloud
+
+security:
+  token:
+    secret-key: "KuHLb3w7YE2WF@o39ds3hDSdsdfdKhs5kdsdsKH@fD"
+    expires-in: 3600000
+    token-type: "bearer"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://registry-service:8761/eureka
+
+--- # develop # ---
+server:
+  port: 9022
+
+spring:
+  profiles:
+    active: develop
+  data:
+    mongodb:
+      database: account-develop
+
+security:
+  token:
+    secret-key: "KuHLb3w7YE2WF@o39ds3hDSdsdfdKhs5kdsdsKH@fD"
+    expires-in: 3600000
+    token-type: "bearer"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
