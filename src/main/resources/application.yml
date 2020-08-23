@@ -1,0 +1,32 @@
+server:
+  port: 9022
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/account-develop
+    username: root
+    password: root
+    driverClassName: org.postgresql.Driver
+    platform: postgres
+    initialization-mode: never
+  # JPA config
+  jpa:
+    database: POSTGRESQL
+    hibernate.ddl-auto: update
+    generate-ddl: true
+
+check-user-scopes: true
+
+security:
+  oauth2:
+    client1:
+      client1-id: account-api
+      client1-secret: $2y$12$0/4KDUCci/SVOTxx5jcqJ..vzjM/DYJ62kl1OvbSBT7GlzN81eULi
+    client2:
+      client2-id: post-api
+      client2-secret: $2y$12$cD2NkYlNyJg7J2xQjANtBOuHf8Qgn1HB.mMGYijIRd3.s1e6wfeay
+
+  token:
+    secret-key: "KuHLb3w7YE2WF@o39ds3hDSdsdfdKhs5kdsdsKH@fD"
+    expires-in: 3600000
+    token-type: "bearer"
