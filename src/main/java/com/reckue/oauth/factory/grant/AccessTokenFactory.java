@@ -1,11 +1,12 @@
-package com.reckue.oauth.factory;
+package com.reckue.oauth.factory.grant;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.reckue.oauth.factory.PayloadFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AccessTokenFactory implements FactoryService<String, String> {
+public class AccessTokenFactory implements PayloadFactory<String, String> {
 
     @Override
     public String produce(String secret) {
