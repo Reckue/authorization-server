@@ -13,7 +13,7 @@ public class ClientService implements BaseCrudService<Client> {
     }
 
     @Override
-    public Client get(String id) {
+    public Client findById(String id) {
         return null;
     }
 
