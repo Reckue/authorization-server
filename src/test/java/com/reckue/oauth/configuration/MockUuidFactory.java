@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 @TestConfiguration
 public class MockUuidFactory {
 
-    UUID uuid = UUID.randomUUID();
+    private final UUID uuid = UUID.randomUUID();
 
     @Bean
     public UuidFactory getUuidFactory() {
