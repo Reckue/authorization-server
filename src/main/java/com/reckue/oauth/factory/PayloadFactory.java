@@ -1,6 +1,6 @@
 package com.reckue.oauth.factory;
 
-public interface FactoryService<E, P> {
+public interface PayloadFactory<E, P> extends Factory {
 
     E produce(P payload);
 }
