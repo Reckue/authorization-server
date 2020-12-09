@@ -18,8 +18,11 @@ public class PasswordCredentialsValidatorService implements StoreValidatorServic
 
     @Override
     public boolean exists(PasswordCredentials entity) {
-        Example<PasswordCredentials> example = mongoExampleFactory.produce(entity);
-        return passwordCredentialsRepository.exists(example);
+        Example<PasswordCredentials> exampleEmail = mongoExampleFactory.produce(entity, "username");
+        Example<PasswordCredentials> exampleUsername = mongoExampleFactory.produce(entity, "email");
+        boolean existsEmail = passwordCredentialsRepository.exists(exampleEmail);
+        boolean existsUsername = passwordCredentialsRepository.exists(exampleUsername);
+        return existsEmail || existsUsername;
     }
 
     @Override
