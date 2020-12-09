@@ -1,6 +1,6 @@
 package com.reckue.oauth.service.interfaces;
 
-public interface BaseCrudService<E> {
+public interface BaseCrdService<E> {
 
     E create(E entity);
     E findById(String id);

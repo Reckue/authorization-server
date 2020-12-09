@@ -1,4 +1,4 @@
-package com.reckue.oauth.configuration;
+package com.reckue.oauth.mock;
 
 import com.reckue.oauth.factory.base.UuidFactory;
 import org.springframework.boot.test.context.TestConfiguration;

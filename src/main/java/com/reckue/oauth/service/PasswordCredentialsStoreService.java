@@ -2,7 +2,7 @@ package com.reckue.oauth.service;
 
 import com.reckue.oauth.model.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
-import com.reckue.oauth.service.interfaces.BaseCrudService;
+import com.reckue.oauth.service.interfaces.BaseCrdService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PasswordCredentialsStoreService implements BaseCrudService<PasswordCredentials> {
+public class PasswordCredentialsStoreService implements BaseCrdService<PasswordCredentials> {
 
     private final PasswordCredentialsRepository passwordCredentialsRepository;
 

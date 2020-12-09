@@ -1,4 +1,4 @@
-package com.reckue.oauth.factory;
+package com.reckue.oauth.cases.factory;
 
 import com.reckue.oauth.factory.base.MongoExampleFactory;
 import com.reckue.oauth.model.Client;

@@ -1,10 +1,10 @@
-package com.reckue.oauth.factory;
+package com.reckue.oauth.cases.factory;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.reckue.oauth.configuration.MockUuidFactory;
+import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.factory.base.UuidFactory;
 import com.reckue.oauth.factory.grant.AccessTokenFactory;
 import com.reckue.oauth.factory.grant.AuthorizationGrantFactory;
