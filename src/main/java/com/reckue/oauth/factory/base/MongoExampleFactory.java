@@ -12,19 +12,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MongoExampleFactory<T> implements PayloadFactory<Example<T>, T>, AdditionalPayloadFactory<Example<T>, T> {
 
-    private final ExampleMatcherFactory exampleMatherFactory;
+    private final ExampleMatcherFactory exampleMatcherFactory;
 
     @Override
     public Example<T> produce(T payload, String... ignorePaths) {
-        ExampleMatcher matcher = exampleMatherFactory.produce();
-        for (String path : ignorePaths) {
-            matcher.withIgnorePaths(path);
-        }
+        ExampleMatcher matcher = exampleMatcherFactory.produce(ignorePaths);
         return Example.of(payload, matcher);
     }
 
     @Override
     public Example<T> produce(T payload) {
-        return Example.of(payload, exampleMatherFactory.produce());
+        return Example.of(payload, exampleMatcherFactory.produce());
     }
 }
