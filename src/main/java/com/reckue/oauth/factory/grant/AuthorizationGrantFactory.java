@@ -1,8 +1,8 @@
 package com.reckue.oauth.factory.grant;
 
 import com.reckue.oauth.factory.PayloadFactory;
-import com.reckue.oauth.model.AuthorizationGrant;
-import com.reckue.oauth.model.Client;
+import com.reckue.oauth.model.internal.AuthorizationGrant;
+import com.reckue.oauth.model.internal.Client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

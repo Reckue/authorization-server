@@ -1,7 +1,7 @@
 package com.reckue.oauth.factory;
 
 import com.reckue.oauth.factory.base.UuidFactory;
-import com.reckue.oauth.model.PasswordCredentials;
+import com.reckue.oauth.model.internal.PasswordCredentials;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

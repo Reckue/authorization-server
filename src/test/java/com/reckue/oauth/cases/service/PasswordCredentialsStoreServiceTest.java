@@ -6,8 +6,8 @@ import com.reckue.oauth.factory.base.MongoExampleFactory;
 import com.reckue.oauth.mock.MockPasswordCredentialsRepository;
 import com.reckue.oauth.mock.MockPasswordCredentialsValidatorService;
 import com.reckue.oauth.mock.MockUuidFactory;
-import com.reckue.oauth.model.PasswordCredentials;
-import com.reckue.oauth.service.PasswordCredentialsStoreService;
+import com.reckue.oauth.model.internal.PasswordCredentials;
+import com.reckue.oauth.service.store.PasswordCredentialsStoreService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -51,7 +51,7 @@ public class PasswordCredentialsStoreServiceTest {
     public void delete() {
         PasswordCredentials expected = passwordCredentialsFactory.produce();
         String id = expected.getId();
-        PasswordCredentials actual = passwordCredentialsStoreService.delete(id);
+        PasswordCredentials actual = passwordCredentialsStoreService.deleteById(id);
         assertEquals(expected, actual);
     }
 }
