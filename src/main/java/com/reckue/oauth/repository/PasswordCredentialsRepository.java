@@ -1,6 +1,6 @@
 package com.reckue.oauth.repository;
 
-import com.reckue.oauth.model.PasswordCredentials;
+import com.reckue.oauth.model.internal.PasswordCredentials;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

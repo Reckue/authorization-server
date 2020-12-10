@@ -1,7 +1,7 @@
-package com.reckue.oauth.service;
+package com.reckue.oauth.service.store;
 
-import com.reckue.oauth.model.Client;
-import com.reckue.oauth.service.interfaces.BaseCrdService;
+import com.reckue.oauth.model.internal.Client;
+import com.reckue.oauth.service.BaseCrdService;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +18,7 @@ public class ClientService implements BaseCrdService<Client> {
     }
 
     @Override
-    public Client delete(String id) {
+    public Client deleteById(String id) {
         return null;
     }
 }

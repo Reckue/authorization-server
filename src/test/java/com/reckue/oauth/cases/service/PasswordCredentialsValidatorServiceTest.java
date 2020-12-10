@@ -5,8 +5,8 @@ import com.reckue.oauth.mock.MockPasswordCredentialsRepository;
 import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.factory.base.ExampleMatcherFactory;
 import com.reckue.oauth.factory.base.MongoExampleFactory;
-import com.reckue.oauth.model.PasswordCredentials;
-import com.reckue.oauth.service.PasswordCredentialsValidatorService;
+import com.reckue.oauth.model.internal.PasswordCredentials;
+import com.reckue.oauth.service.check.PasswordCredentialsChecker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = {
         MockPasswordCredentialsRepository.class,
-        PasswordCredentialsValidatorService.class,
+        PasswordCredentialsChecker.class,
         MongoExampleFactory.class,
         ExampleMatcherFactory.class,
         MockUuidFactory.class,
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PasswordCredentialsValidatorServiceTest {
 
     @Autowired
-    private PasswordCredentialsValidatorService passwordCredentialsValidatorService;
+    private PasswordCredentialsChecker passwordCredentialsValidatorService;
 
     @Autowired
     private PasswordCredentialsFactory passwordCredentialsFactory;

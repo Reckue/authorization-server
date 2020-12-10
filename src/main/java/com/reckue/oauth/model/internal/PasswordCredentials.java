@@ -1,4 +1,4 @@
-package com.reckue.oauth.model;
+package com.reckue.oauth.model.internal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

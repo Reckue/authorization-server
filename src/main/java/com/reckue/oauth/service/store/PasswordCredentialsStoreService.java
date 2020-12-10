@@ -1,8 +1,9 @@
-package com.reckue.oauth.service;
+package com.reckue.oauth.service.store;
 
-import com.reckue.oauth.model.PasswordCredentials;
+import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
-import com.reckue.oauth.service.interfaces.BaseCrdService;
+import com.reckue.oauth.service.check.PasswordCredentialsChecker;
+import com.reckue.oauth.service.BaseCrdService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,8 +14,7 @@ import org.springframework.stereotype.Service;
 public class PasswordCredentialsStoreService implements BaseCrdService<PasswordCredentials> {
 
     private final PasswordCredentialsRepository passwordCredentialsRepository;
-
-    private final PasswordCredentialsValidatorService passwordCredentialsValidatorService;
+    private final PasswordCredentialsChecker passwordCredentialsValidatorService;
 
     @Override
     public PasswordCredentials create(PasswordCredentials entity) {
@@ -29,7 +29,7 @@ public class PasswordCredentialsStoreService implements BaseCrdService<PasswordC
     }
 
     @Override
-    public PasswordCredentials delete(String id) {
+    public PasswordCredentials deleteById(String id) {
         PasswordCredentials entity = this.findById(id);
         passwordCredentialsRepository.deleteById(id);
         return entity;
