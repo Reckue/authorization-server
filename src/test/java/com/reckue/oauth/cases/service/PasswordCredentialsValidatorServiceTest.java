@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static com.reckue.oauth.utils.AlreadyExistsUtil.checkThrowReckuePasswordCredentialsAlreadyExists;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = {
@@ -39,10 +40,9 @@ public class PasswordCredentialsValidatorServiceTest {
     @Test
     public void passwordCredentialsAlreadyExists() {
         PasswordCredentials passwordCredentials = passwordCredentialsFactory.produce();
-        Exception exception = assertThrows(RuntimeException.class, () ->
+        checkThrowReckuePasswordCredentialsAlreadyExists(() ->
                 passwordCredentialsValidatorService.checkAlreadyExists(passwordCredentials)
         );
-        assertEquals("Password credentials already exists.", exception.getMessage());
     }
 
     @Test

@@ -3,9 +3,9 @@ package com.reckue.oauth.factory;
 import com.reckue.oauth.factory.base.UuidFactory;
 import com.reckue.oauth.model.PasswordCredentials;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.test.context.TestComponent;
+import org.springframework.stereotype.Component;
 
-@TestComponent
+@Component
 @RequiredArgsConstructor
 public class PasswordCredentialsFactory implements IndependentFactory<PasswordCredentials> {
 
