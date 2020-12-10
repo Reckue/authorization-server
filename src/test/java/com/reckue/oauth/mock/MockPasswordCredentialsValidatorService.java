@@ -1,8 +1,10 @@
 package com.reckue.oauth.mock;
 
 import com.reckue.oauth.factory.PasswordCredentialsFactory;
+import com.reckue.oauth.model.PasswordCredentials;
 import com.reckue.oauth.service.PasswordCredentialsValidatorService;
 import lombok.RequiredArgsConstructor;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
@@ -17,11 +19,11 @@ public class MockPasswordCredentialsValidatorService {
     @Bean
     public PasswordCredentialsValidatorService getPasswordCredentialsValidatorService() {
         PasswordCredentialsValidatorService service = mock(PasswordCredentialsValidatorService.class);
-        when(service.exists(passwordCredentialsFactory.produce()))
-                .thenReturn(true);
-        doThrow(new RuntimeException("Password credentials already exists."))
+        PasswordCredentials passwordCredentials = passwordCredentialsFactory.produce();
+        when(service.exists(passwordCredentials)).thenReturn(true);
+        Mockito.doThrow(new RuntimeException("Password credentials already exists."))
                 .when(service)
-                .checkAlreadyExists(passwordCredentialsFactory.produce());
+                .checkAlreadyExists(passwordCredentials);
         return service;
     }
 }
