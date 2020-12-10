@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static com.reckue.oauth.utils.AlreadyExistsUtil.checkThrowReckuePasswordCredentialsAlreadyExists;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class PasswordCredentialsStoreTest {
@@ -32,10 +32,9 @@ public class PasswordCredentialsStoreTest {
         PasswordCredentials passwordCredentials = passwordCredentialsFactory.produce();
         long count = passwordCredentialsRepository.count(mongoExampleFactory.produce(passwordCredentials));
         if (count > 0) {
-            Exception exception = assertThrows(RuntimeException.class, () ->
+            checkThrowReckuePasswordCredentialsAlreadyExists(() ->
                     passwordCredentialsStoreService.create(passwordCredentials)
             );
-            assertEquals("Password credentials already exists.", exception.getMessage());
         } else {
             PasswordCredentials saved = passwordCredentialsStoreService.create(passwordCredentials);
             assertEquals(passwordCredentials, saved);
