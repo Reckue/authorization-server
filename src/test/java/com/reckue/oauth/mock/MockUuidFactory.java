@@ -1,4 +1,4 @@
-package com.reckue.oauth.configuration;
+package com.reckue.oauth.mock;
 
 import com.reckue.oauth.factory.base.UuidFactory;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 @TestConfiguration
 public class MockUuidFactory {
 
-    UUID uuid = UUID.randomUUID();
+    private final UUID uuid = UUID.randomUUID();
 
     @Bean
     public UuidFactory getUuidFactory() {
