@@ -3,7 +3,6 @@ package com.reckue.oauth.service.check;
 import com.reckue.oauth.factory.base.MongoExampleFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
-import com.reckue.oauth.service.StoreChecker;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
