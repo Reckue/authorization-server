@@ -2,7 +2,9 @@ package com.reckue.oauth.factory.grant;
 
 import com.reckue.oauth.factory.IndependentFactory;
 import com.reckue.oauth.model.internal.Client;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BaseClientFactory implements IndependentFactory<Client> {
 
     @Override
