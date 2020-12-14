@@ -1,4 +1,4 @@
-package com.reckue.oauth.service;
+package com.reckue.oauth.service.store;
 
 public interface UpdateService<T> extends BaseUpdateService<T> {
 
