@@ -13,14 +13,12 @@ repositories {
 }
 
 dependencies {
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     /* database */
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.mongodb:mongo-java-driver:3.12.0'
-
-    /* security */
-    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     /* jwt */
     implementation 'com.auth0:java-jwt:3.11.0'
@@ -29,8 +27,7 @@ dependencies {
     implementation 'net.sf.dozer:dozer:5.5.1'
 
     /* swagger */
-    implementation 'io.springfox:springfox-swagger2:2.9.2'
-    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
 
     /* code generators */
     compileOnly 'org.projectlombok:lombok'
