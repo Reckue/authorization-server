@@ -4,7 +4,7 @@ import com.reckue.oauth.factory.PasswordCredentialsFactory;
 import com.reckue.oauth.factory.base.MongoExampleFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
-import com.reckue.oauth.service.store.PasswordCredentialsStoreService;
+import com.reckue.oauth.service.store.impl.PasswordCredentialsStoreService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

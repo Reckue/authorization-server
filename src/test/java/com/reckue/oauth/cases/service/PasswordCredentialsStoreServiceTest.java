@@ -7,7 +7,7 @@ import com.reckue.oauth.mock.MockPasswordCredentialsRepository;
 import com.reckue.oauth.mock.MockPasswordCredentialsValidatorService;
 import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
-import com.reckue.oauth.service.store.PasswordCredentialsStoreService;
+import com.reckue.oauth.service.store.impl.PasswordCredentialsStoreService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
