@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class PasswordCredentialsFactory implements IndependentFactory<PasswordCredentials> {
+public class MockPasswordCredentialsFactory implements IndependentFactory<PasswordCredentials> {
 
     private final UuidFactory uuidFactory;
 

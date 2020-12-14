@@ -1,6 +1,6 @@
 package com.reckue.oauth.cases.store;
 
-import com.reckue.oauth.factory.PasswordCredentialsFactory;
+import com.reckue.oauth.factory.MockPasswordCredentialsFactory;
 import com.reckue.oauth.factory.base.MongoExampleFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
@@ -25,11 +25,11 @@ public class PasswordCredentialsStoreTest {
     private MongoExampleFactory<PasswordCredentials> mongoExampleFactory;
 
     @Autowired
-    private PasswordCredentialsFactory passwordCredentialsFactory;
+    private MockPasswordCredentialsFactory mockPasswordCredentialsFactory;
 
     @Test
     public void createPasswordCredentials() {
-        PasswordCredentials passwordCredentials = passwordCredentialsFactory.produce();
+        PasswordCredentials passwordCredentials = mockPasswordCredentialsFactory.produce();
         long count = passwordCredentialsRepository.count(mongoExampleFactory.produce(passwordCredentials));
         if (count > 0) {
             checkThrowReckuePasswordCredentialsAlreadyExists(() ->
