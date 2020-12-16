@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 public class PasswordCredentialsStoreService implements BaseCrdService<PasswordCredentials> {
 
     private final PasswordCredentialsRepository passwordCredentialsRepository;
-    private final PasswordCredentialsChecker passwordCredentialsValidatorService;
+    private final PasswordCredentialsChecker passwordCredentialsChecker;
 
     @Override
     public PasswordCredentials create(PasswordCredentials entity) {
-        passwordCredentialsValidatorService.checkAlreadyExists(entity);
+        passwordCredentialsChecker.checkAlreadyExists(entity);
         return passwordCredentialsRepository.save(entity);
     }
 

@@ -9,7 +9,6 @@ import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.service.check.PasswordCredentialsChecker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.reckue.oauth.utils.AlreadyExistsUtil.checkThrowReckuePasswordCredentialsAlreadyExists;
