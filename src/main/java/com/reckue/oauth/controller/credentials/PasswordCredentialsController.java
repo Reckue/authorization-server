@@ -6,6 +6,7 @@ import com.reckue.oauth.model.response.AuthorizationResponse;
 import com.reckue.oauth.service.logic.PasswordCredentialsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,7 +18,7 @@ public class PasswordCredentialsController implements
 
     @Override
     @PostMapping("/register")
-    public AuthorizationResponse register(PasswordCredentialsRequest request) {
+    public AuthorizationResponse register(@RequestBody PasswordCredentialsRequest request) {
         return passwordCredentialsService.register(request);
     }
 }
