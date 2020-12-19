@@ -1,4 +1,4 @@
-package com.reckue.oauth.cases.factory;
+package com.reckue.oauth.cases.unit.factory;
 
 import com.reckue.oauth.factory.base.PasswordEncoder;
 import com.reckue.oauth.factory.base.ReckueSaltFactory;

@@ -1,6 +1,6 @@
-package com.reckue.oauth.cases.store;
+package com.reckue.oauth.cases.unit.store;
 
-import com.reckue.oauth.factory.MockPasswordCredentialsFactory;
+import com.reckue.oauth.mock.MockPasswordCredentialsFactory;
 import com.reckue.oauth.factory.base.MongoExampleFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;

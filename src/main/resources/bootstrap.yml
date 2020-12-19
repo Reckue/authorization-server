@@ -1,7 +1,9 @@
+client-id: cb92b0c5-6f11-4edd-8b5b-ad4c7d625982
+client-secret: dfe4c033-da2c-417c-853d-98916dbc7de4
+
 spring:
   application:
     name: auth-server
-
 
 --- # cloud # ---
 server:
@@ -12,13 +14,7 @@ spring:
   data:
     mongodb:
       host: mongodb
-      database: account-cloud
-
-security:
-  token:
-    secret-key: "KuHLb3w7YE2WF@o39ds3hDSdsdfdKhs5kdsdsKH@fD"
-    expires-in: 3600000
-    token-type: "bearer"
+      database: oauth-cloud
 
 eureka:
   client:
@@ -34,16 +30,24 @@ spring:
     active: develop
   data:
     mongodb:
-      database: account-develop
-
-security:
-  token:
-    secret-key: "KuHLb3w7YE2WF@o39ds3hDSdsdfdKhs5kdsdsKH@fD"
-    expires-in: 3600000
-    token-type: "bearer"
+      database: oauth-develop
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
+--- # staging # ---
+server:
+  port: 9024
+
+spring:
+  profiles: staging
+  data:
+    mongodb:
+      database: oauth-staging
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://registry-service:8761/eureka

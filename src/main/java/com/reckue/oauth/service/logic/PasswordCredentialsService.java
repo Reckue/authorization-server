@@ -13,6 +13,9 @@ import com.reckue.oauth.service.store.impl.PasswordCredentialsStoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static com.reckue.oauth.factory.methods.PasswordCredentialResponseFactoryMethods.buildAuthorizationResponse;
+import static com.reckue.oauth.factory.methods.PasswordCredentialResponseFactoryMethods.buildResponseCredentials;
+
 @Service
 @RequiredArgsConstructor
 public class PasswordCredentialsService implements
@@ -24,27 +27,12 @@ public class PasswordCredentialsService implements
     private final PasswordCredentialsFactory passwordCredentialsFactory;
 
     @Override
-    public AuthorizationResponse register(PasswordCredentialsRequest payload) {
-        final Client client = baseClientFactory.produce();
-        final PasswordCredentials passwordCredentials = passwordCredentialsFactory.produce(payload);
+    public AuthorizationResponse register(PasswordCredentialsRequest request) {
+        final PasswordCredentials passwordCredentials = passwordCredentialsFactory.produce(request);
         final PasswordCredentials savedCredentials = passwordCredentialsStoreService.create(passwordCredentials);
-        final PasswordCredentialsResponse responseCredentials = buildResponseCredentials(savedCredentials);
-        return buildAuthorizationResponse(client, responseCredentials);
-    }
-
-    private AuthorizationResponse buildAuthorizationResponse(Client client, PasswordCredentialsResponse credentials) {
+        final Client client = baseClientFactory.produce();
         final AuthorizationGrant authorizationGrant = authorizationGrantFactory.produce(client);
-        return AuthorizationResponse.builder()
-                .clientId(client.getId())
-                .accessToken(authorizationGrant.getAccessToken())
-                .refreshToken(authorizationGrant.getRefreshToken())
-                .credentials(credentials).build();
-    }
-
-    private PasswordCredentialsResponse buildResponseCredentials(PasswordCredentials credentials) {
-        return PasswordCredentialsResponse.builder()
-                .id(credentials.getId())
-                .username(credentials.getUsername())
-                .email(credentials.getEmail()).build();
+        final PasswordCredentialsResponse responseCredentials = buildResponseCredentials(savedCredentials);
+        return buildAuthorizationResponse(client, responseCredentials, authorizationGrant);
     }
 }

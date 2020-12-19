@@ -1,5 +1,6 @@
-package com.reckue.oauth.factory;
+package com.reckue.oauth.mock;
 
+import com.reckue.oauth.factory.IndependentFactory;
 import com.reckue.oauth.factory.base.UuidFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import lombok.RequiredArgsConstructor;
