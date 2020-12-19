@@ -1,6 +1,5 @@
 package com.reckue.oauth.mock;
 
-import com.reckue.oauth.factory.MockPasswordCredentialsFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.service.check.PasswordCredentialsChecker;
 import lombok.RequiredArgsConstructor;

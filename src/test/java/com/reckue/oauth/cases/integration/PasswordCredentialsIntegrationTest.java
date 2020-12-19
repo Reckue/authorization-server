@@ -1,75 +1,57 @@
 package com.reckue.oauth.cases.integration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.reckue.libs.exception.ReckueIllegalArgumentException;
 import com.reckue.oauth.controller.credentials.PasswordCredentialsController;
-import com.reckue.oauth.model.request.PasswordCredentialsRequest;
+import com.reckue.oauth.model.exceptions.PasswordCredentialsAlreadyExistsException;
+import com.reckue.oauth.repository.PasswordCredentialsRepository;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static com.reckue.oauth.factory.PasswordCredentialsFactoryMethods.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = PasswordCredentialsController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+@ActiveProfiles("staging")
 public class PasswordCredentialsIntegrationTest {
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @Autowired
     private PasswordCredentialsController passwordCredentialsController;
 
+    @Autowired
+    private PasswordCredentialsRepository passwordCredentialsRepository;
+
     @Test
-    public void requestWithoutBody() throws Exception {
-        MockHttpServletRequestBuilder mockRequest = post("/register").accept(MediaType.APPLICATION_JSON);
-                mockMvc.perform(mockRequest)
-               .andExpect(status().is4xxClientError());
+    @SneakyThrows
+    public void createSamePasswordCredentialsTwice() {
+        String body = buildPasswordCredentialsRequestAsString();
+        this.mockMvc.perform(buildRegisterMockRequest(body))
+                .andExpect(status().isOk())
+                .andDo((result) -> retryCreatePasswordCredentialsRequest(body));
     }
 
+    private void retryCreatePasswordCredentialsRequest(String body) throws Exception {
+        this.mockMvc.perform(buildRegisterMockRequest(body))
+                .andExpect(status().is4xxClientError())
+                .andExpect(result ->
+                        assertTrue(result.getResolvedException() instanceof PasswordCredentialsAlreadyExistsException)
+                );
+    }
 
     @Test
     public void requestWithNullFieldsBody() throws Exception {
-        PasswordCredentialsRequest passwordCredentials = buildNullFieldsPasswordCredentialsRequest();
-        String body = objectMapper.writeValueAsString(passwordCredentials);
-
-        MockHttpServletRequestBuilder mockRequest = post("/register")
-                .content(body)
-                .accept(MediaType.APPLICATION_JSON);
-
-        mockMvc.perform(mockRequest)
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Test
-    public void okRequest() throws Exception {
-        PasswordCredentialsRequest passwordCredentials = buildPasswordCredentialsRequest();
-        String body = objectMapper.writeValueAsString(passwordCredentials);
-
-        MockHttpServletRequestBuilder mockRequest = post("/register")
-                .content(body)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON);
-
-        mockMvc.perform(mockRequest).andExpect(status().isOk());
-    }
-
-    private PasswordCredentialsRequest buildNullFieldsPasswordCredentialsRequest() {
-        return PasswordCredentialsRequest.builder()
-                .username(null)
-                .email(null)
-                .password(null).build();
-    }
-
-    private PasswordCredentialsRequest buildPasswordCredentialsRequest() {
-        return PasswordCredentialsRequest.builder()
-                .username("333ok5")
-                .email("o333k3")
-                .password("o333k2").build();
+        String body = buildNullFieldsPasswordCredentialsRequestAsString();
+        mockMvc.perform(buildRegisterMockRequest(body))
+                .andExpect(status().is4xxClientError())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof ReckueIllegalArgumentException));
     }
 }

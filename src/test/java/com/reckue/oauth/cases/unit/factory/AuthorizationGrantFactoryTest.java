@@ -1,4 +1,4 @@
-package com.reckue.oauth.cases.factory;
+package com.reckue.oauth.cases.unit.factory;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
