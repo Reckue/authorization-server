@@ -1,8 +1,8 @@
-package com.reckue.oauth.handlers;
+package com.reckue.oauth.handlers.distributor;
 
 import com.reckue.libs.exception.*;
-import com.reckue.oauth.model.exceptions.PasswordCredentialsAlreadyExistsException;
-import com.reckue.oauth.model.exceptions.PasswordCredentialsNotFoundException;
+import com.reckue.oauth.model.exception.credentials.PasswordCredentialsAlreadyExistsException;
+import com.reckue.oauth.model.exception.credentials.PasswordCredentialsNotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,5 +1,6 @@
 package com.reckue.oauth.utils;
 
+import com.reckue.libs.exception.ReckueException;
 import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,7 +13,7 @@ public class AlreadyExistsUtil {
     }
 
     public static void checkThrowReckueExceptionWithMessage(String expectedMessage, Executable executable) {
-        Exception exception = assertThrows(RuntimeException.class, executable);
+        Exception exception = assertThrows(ReckueException.class, executable);
         checkMessage(expectedMessage, exception);
     }
 

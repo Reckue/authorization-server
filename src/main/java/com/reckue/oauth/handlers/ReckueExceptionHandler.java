@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static com.reckue.oauth.handlers.CodeErrorDistributor.codeErrors;
-import static com.reckue.oauth.handlers.HttpStatusErrorDistributor.httpStatuses;
+import static com.reckue.oauth.handlers.distributor.CodeErrorDistributor.codeErrors;
+import static com.reckue.oauth.handlers.distributor.HttpStatusErrorDistributor.httpStatuses;
 
 @RestControllerAdvice
 public class ReckueExceptionHandler {
