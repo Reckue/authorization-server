@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class PasswordCredentialsFactory implements
-        PayloadFactory<PasswordCredentials, PasswordCredentialsRequest> {
+public class PasswordCredentialsFactory implements PayloadFactory<PasswordCredentials, PasswordCredentialsRequest> {
 
     private final UuidFactory uuidFactory;
     private final PasswordEncoder passwordEncoder;
