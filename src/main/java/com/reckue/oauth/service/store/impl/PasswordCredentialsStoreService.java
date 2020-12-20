@@ -1,6 +1,6 @@
 package com.reckue.oauth.service.store.impl;
 
-import com.reckue.oauth.model.exceptions.PasswordCredentialsNotFoundException;
+import com.reckue.oauth.model.exception.credentials.PasswordCredentialsNotFoundException;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
 import com.reckue.oauth.service.check.PasswordCredentialsChecker;

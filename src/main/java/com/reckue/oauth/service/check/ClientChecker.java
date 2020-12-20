@@ -1,6 +1,7 @@
 package com.reckue.oauth.service.check;
 
 import com.reckue.oauth.factory.base.MongoExampleFactory;
+import com.reckue.oauth.model.exception.client.ClientAlreadyExistsException;
 import com.reckue.oauth.model.internal.Client;
 import com.reckue.oauth.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class ClientChecker implements StoreChecker<Client> {
     @Override
     public void checkAlreadyExists(Client entity) {
         if (this.exists(entity)) {
-            throw new RuntimeException("Client already exists.");
+            throw new ClientAlreadyExistsException();
         }
     }
 }

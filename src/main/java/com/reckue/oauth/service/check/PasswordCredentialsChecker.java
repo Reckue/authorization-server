@@ -1,7 +1,7 @@
 package com.reckue.oauth.service.check;
 
 import com.reckue.oauth.factory.base.MongoExampleFactory;
-import com.reckue.oauth.model.exceptions.PasswordCredentialsAlreadyExistsException;
+import com.reckue.oauth.model.exception.credentials.PasswordCredentialsAlreadyExistsException;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
 import lombok.RequiredArgsConstructor;

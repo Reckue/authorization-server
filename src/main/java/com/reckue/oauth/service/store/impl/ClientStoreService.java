@@ -1,5 +1,6 @@
 package com.reckue.oauth.service.store.impl;
 
+import com.reckue.oauth.model.exception.client.ClientNotFoundException;
 import com.reckue.oauth.model.internal.Client;
 import com.reckue.oauth.repository.ClientRepository;
 import com.reckue.oauth.service.check.ClientChecker;
@@ -23,7 +24,7 @@ public class ClientStoreService implements BaseCrdService<Client> {
     @Override
     public Client findById(String id) {
         return clientRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cannot find client by id"));
+                .orElseThrow(() -> new ClientNotFoundException(id));
     }
 
     @Override

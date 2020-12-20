@@ -2,7 +2,7 @@ package com.reckue.oauth.cases.integration;
 
 import com.reckue.libs.exception.ReckueIllegalArgumentException;
 import com.reckue.oauth.controller.credentials.PasswordCredentialsController;
-import com.reckue.oauth.model.exceptions.PasswordCredentialsAlreadyExistsException;
+import com.reckue.oauth.model.exception.credentials.PasswordCredentialsAlreadyExistsException;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;

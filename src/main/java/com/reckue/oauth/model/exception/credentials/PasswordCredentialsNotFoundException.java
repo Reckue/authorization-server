@@ -1,4 +1,4 @@
-package com.reckue.oauth.model.exceptions;
+package com.reckue.oauth.model.exception.credentials;
 
 import com.reckue.libs.exception.ModelNotFoundException;
 import lombok.Getter;
@@ -13,6 +13,6 @@ public class PasswordCredentialsNotFoundException extends ModelNotFoundException
     }
 
     public PasswordCredentialsNotFoundException(String id) {
-        this.message = "Password credentials by id '" + id + "' is not found";
+        this.message = "Password credentials by id '" + id + "' is not found.";
     }
 }
