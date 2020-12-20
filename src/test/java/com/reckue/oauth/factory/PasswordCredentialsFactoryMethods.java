@@ -24,7 +24,7 @@ public class PasswordCredentialsFactoryMethods {
     }
 
     public static String buildPasswordCredentialsRequestAsString() throws JsonProcessingException {
-        return objectMapper.writeValueAsString(buildPasswordCredentialsRequest());
+        return objectMapper.writeValueAsString(buildUniquePasswordCredentialsRequest());
     }
 
     public static String buildNullFieldsPasswordCredentialsRequestAsString() throws JsonProcessingException {
@@ -39,6 +39,13 @@ public class PasswordCredentialsFactoryMethods {
     }
 
     public static PasswordCredentialsRequest buildPasswordCredentialsRequest() {
+        return PasswordCredentialsRequest.builder()
+                .username("hardelele")
+                .email("hardelele@yahoo.com")
+                .password("12345678").build();
+    }
+
+    public static PasswordCredentialsRequest buildUniquePasswordCredentialsRequest() {
         return PasswordCredentialsRequest.builder()
                 .username("testPasswordCredentials")
                 .email("test@mail.com")
