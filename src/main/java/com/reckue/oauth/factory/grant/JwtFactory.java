@@ -2,8 +2,11 @@ package com.reckue.oauth.factory.grant;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.reckue.oauth.factory.MapPayloadFactory;
+import com.reckue.oauth.factory.PayloadFactory;
+import com.reckue.oauth.factory.base.UuidFactory;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Map;
 
@@ -13,7 +16,7 @@ import java.util.Map;
  * @author Kamila Meshcheryakova
  * created 23.12.2020
  */
-public class JwtFactory implements MapPayloadFactory<String, Object> {
+public class JwtFactory implements PayloadFactory<String, Map<String, Object>> {
 
     @Override
     public String produce(Map<String, Object> claims) {
@@ -22,9 +25,9 @@ public class JwtFactory implements MapPayloadFactory<String, Object> {
                 .withAudience((String[]) claims.get("audience"))
                 .withSubject((String) claims.get("subject"))
                 .withNotBefore((Date) claims.get("notBefore"))
-                .withIssuedAt((Date) claims.get("issueAt"))
-                .withExpiresAt((Date) claims.get("expiresAt"))
-                .withJWTId((String) claims.get("jwtId"))
-                .sign((Algorithm) claims.get("algorithm"));
+                .withIssuedAt(new Date())
+                .withExpiresAt(Date.from(Instant.now().plus((Integer) claims.get("expiresInDays"), ChronoUnit.DAYS)))
+                .withJWTId(new UuidFactory().produce())
+                .sign(Algorithm.HMAC256((String) claims.get("secret")));
     }
 }
