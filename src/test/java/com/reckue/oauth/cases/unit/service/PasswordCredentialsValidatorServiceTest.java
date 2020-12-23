@@ -1,6 +1,6 @@
-package com.reckue.oauth.cases.service;
+package com.reckue.oauth.cases.unit.service;
 
-import com.reckue.oauth.factory.MockPasswordCredentialsFactory;
+import com.reckue.oauth.mock.MockPasswordCredentialsFactory;
 import com.reckue.oauth.mock.MockPasswordCredentialsRepository;
 import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.factory.base.ExampleMatcherFactory;

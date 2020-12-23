@@ -1,5 +1,6 @@
 package com.reckue.oauth.service.store.impl;
 
+import com.reckue.oauth.model.exception.credentials.PasswordCredentialsNotFoundException;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
 import com.reckue.oauth.service.check.PasswordCredentialsChecker;
@@ -25,7 +26,7 @@ public class PasswordCredentialsStoreService implements BaseCrdService<PasswordC
     @Override
     public PasswordCredentials findById(String id) {
         return passwordCredentialsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cannot find password credentials by id"));
+                .orElseThrow(() -> new PasswordCredentialsNotFoundException(id));
     }
 
     @Override
