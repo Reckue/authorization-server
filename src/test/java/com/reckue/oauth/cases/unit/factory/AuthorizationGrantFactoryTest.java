@@ -1,17 +1,12 @@
 package com.reckue.oauth.cases.unit.factory;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.reckue.libs.exception.ReckueIllegalArgumentException;
-import com.reckue.oauth.factory.grant.JwtFactory;
-import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.factory.base.UuidFactory;
 import com.reckue.oauth.factory.grant.AccessTokenFactory;
 import com.reckue.oauth.factory.grant.AuthorizationGrantFactory;
+import com.reckue.oauth.factory.grant.JwtFactory;
 import com.reckue.oauth.factory.grant.RefreshTokenFactory;
-import com.reckue.oauth.model.internal.AuthorizationGrant;
+import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.model.internal.Client;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
