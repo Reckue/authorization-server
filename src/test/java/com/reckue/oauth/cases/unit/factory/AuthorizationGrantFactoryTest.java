@@ -4,6 +4,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.reckue.libs.exception.ReckueIllegalArgumentException;
+import com.reckue.oauth.factory.grant.JwtFactory;
 import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.factory.base.UuidFactory;
 import com.reckue.oauth.factory.grant.AccessTokenFactory;
@@ -11,6 +13,7 @@ import com.reckue.oauth.factory.grant.AuthorizationGrantFactory;
 import com.reckue.oauth.factory.grant.RefreshTokenFactory;
 import com.reckue.oauth.model.internal.AuthorizationGrant;
 import com.reckue.oauth.model.internal.Client;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         MockUuidFactory.class,
         AuthorizationGrantFactory.class,
         RefreshTokenFactory.class,
-        AccessTokenFactory.class
+        AccessTokenFactory.class,
+        JwtFactory.class
 })
 class AuthorizationGrantFactoryTest {
 
@@ -33,22 +37,21 @@ class AuthorizationGrantFactoryTest {
     private UuidFactory uuidFactory;
 
     @Test
-    public void validateAuthorizationGrant() {
+    public void validateAuthorizationGrantSuccess() {
         Client validClient = new Client(uuidFactory.produce(), uuidFactory.produce());
-        Client noneValidClient = new Client("none", "valid");
-        AuthorizationGrant validGrant = authorizationGrantFactory.produce(validClient);
-        AuthorizationGrant noneValidGrant = authorizationGrantFactory.produce(noneValidClient);
-
-
-        Algorithm algorithm = Algorithm.HMAC256(validClient.getSecret());
-        JWTVerifier verifier = JWT.require(algorithm).build();
-
-
         assertDoesNotThrow(() ->
-                verifier.verify(validGrant.getAccessToken())
-        );
-        assertThrows(JWTVerificationException.class, () ->
-            verifier.verify(noneValidGrant.getAccessToken())
-        );
+                authorizationGrantFactory.produce(validClient));
+    }
+
+    @Test
+    public void validateAuthorizationGrantFailedWithNullSecret() {
+        Client noneValidClient = new Client("none", null);
+        assertThrows(ReckueIllegalArgumentException.class, () ->
+                authorizationGrantFactory.produce(noneValidClient));
+    }
+
+    @Test
+    public void validateAuthorizationGrantFailedWithNullClient() {
+        Assertions.assertThrows(ReckueIllegalArgumentException.class, () -> authorizationGrantFactory.produce(null));
     }
 }
