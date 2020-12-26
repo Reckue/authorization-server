@@ -1,17 +1,17 @@
 package com.reckue.oauth.factory.grant;
 
 import com.reckue.oauth.factory.PayloadFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@RequiredArgsConstructor
 public class RefreshTokenFactory implements PayloadFactory<String, String> {
 
-    @Autowired
-    private JwtFactory jwtFactory;
+    private final JwtFactory jwtFactory;
 
     @Override
     public String produce(String secret) {

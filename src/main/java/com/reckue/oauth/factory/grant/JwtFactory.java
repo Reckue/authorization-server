@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.reckue.libs.exception.ReckueIllegalArgumentException;
 import com.reckue.oauth.factory.PayloadFactory;
 import com.reckue.oauth.factory.base.UuidFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -20,10 +20,10 @@ import java.util.Map;
  * created 23.12.2020
  */
 @Component
+@RequiredArgsConstructor
 public class JwtFactory implements PayloadFactory<String, Map<String, Object>> {
 
-    @Autowired
-    private UuidFactory uuidFactory;
+    private final UuidFactory uuidFactory;
 
     /**
      * The method allows to create any jwt with any params from map received from argument.
@@ -47,6 +47,10 @@ public class JwtFactory implements PayloadFactory<String, Map<String, Object>> {
                 .withIssuedAt(new Date())
                 .withExpiresAt(Date.from(Instant.now().plus(days, ChronoUnit.DAYS)))
                 .withJWTId(uuidFactory.produce())
-                .sign(Algorithm.HMAC256((String) claims.get("secret")));
+                .sign(getAlgorithm((String) claims.get("secret")));
+    }
+
+    private Algorithm getAlgorithm(String secret) {
+        return Algorithm.HMAC256(secret);
     }
 }
