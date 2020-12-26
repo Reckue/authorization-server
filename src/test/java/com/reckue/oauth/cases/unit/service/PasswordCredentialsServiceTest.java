@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.reckue.oauth.factory.methods.PasswordCredentialsRequestFactoryMethods.buildPasswordCredentialsRequest;
+import static com.reckue.oauth.utils.AlreadyExistsUtil.checkThrowReckueExceptionWithMessage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = {
@@ -50,6 +51,15 @@ public class PasswordCredentialsServiceTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void tryToRegisterButNullPasswordCredentialsRequest() {
+        checkThrowReckueExceptionWithMessage(
+                "PasswordCredentialsRequest is null",
+                () -> passwordCredentialsService.register(null)
+        );
+    }
+
+    //TODO:: Move to separate class
     public AuthorizationResponse buildAuthorizationResponse() {
         return AuthorizationResponse.builder()
                 .clientId(baseClientFactory.produce().getId())
@@ -59,6 +69,7 @@ public class PasswordCredentialsServiceTest {
                 .build();
     }
 
+    //TODO:: Move to separate class
     public PasswordCredentialsResponse buildPasswordCredentialsResponse() {
         PasswordCredentials passwordCredentials = noEncoderPasswordCredentialsFactory.produce();
         return PasswordCredentialsResponse.builder()
@@ -66,15 +77,5 @@ public class PasswordCredentialsServiceTest {
                 .email(passwordCredentials.getEmail())
                 .username(passwordCredentials.getUsername())
                 .build();
-    }
-
-    @Test
-    public void tryToRegisterButAlreadyExists() {
-        //TODO:: implements
-    }
-
-    @Test
-    public void tryToRegisterButIllegalPassword() {
-        //TODO:: implements
     }
 }
