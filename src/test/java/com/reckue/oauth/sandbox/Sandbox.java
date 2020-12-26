@@ -5,10 +5,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class Sandbox {
-
-
+    
     @Test
     public void run() {
-
     }
 }

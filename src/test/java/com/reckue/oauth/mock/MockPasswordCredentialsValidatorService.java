@@ -1,5 +1,6 @@
 package com.reckue.oauth.mock;
 
+import com.reckue.oauth.factory.NoEncoderPasswordCredentialsFactory;
 import com.reckue.oauth.model.exception.credentials.PasswordCredentialsAlreadyExistsException;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.service.check.PasswordCredentialsChecker;
@@ -14,12 +15,12 @@ import static org.mockito.Mockito.*;
 @RequiredArgsConstructor
 public class MockPasswordCredentialsValidatorService {
 
-    private final MockPasswordCredentialsFactory mockPasswordCredentialsFactory;
+    private final NoEncoderPasswordCredentialsFactory noEncoderPasswordCredentialsFactory;
 
     @Bean
     public PasswordCredentialsChecker getPasswordCredentialsValidatorService() {
         PasswordCredentialsChecker service = mock(PasswordCredentialsChecker.class);
-        PasswordCredentials passwordCredentials = mockPasswordCredentialsFactory.produce();
+        PasswordCredentials passwordCredentials = noEncoderPasswordCredentialsFactory.produce();
         when(service.exists(passwordCredentials)).thenReturn(true);
         Mockito.doThrow(new PasswordCredentialsAlreadyExistsException())
                 .when(service)

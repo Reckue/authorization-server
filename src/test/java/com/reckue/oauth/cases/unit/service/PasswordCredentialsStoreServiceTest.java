@@ -1,6 +1,6 @@
 package com.reckue.oauth.cases.unit.service;
 
-import com.reckue.oauth.mock.MockPasswordCredentialsFactory;
+import com.reckue.oauth.factory.NoEncoderPasswordCredentialsFactory;
 import com.reckue.oauth.factory.base.ExampleMatcherFactory;
 import com.reckue.oauth.factory.base.MongoExampleFactory;
 import com.reckue.oauth.mock.MockPasswordCredentialsRepository;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         MongoExampleFactory.class,
         ExampleMatcherFactory.class,
         MockUuidFactory.class,
-        MockPasswordCredentialsFactory.class
+        NoEncoderPasswordCredentialsFactory.class
 })
 public class PasswordCredentialsStoreServiceTest {
 
@@ -30,18 +30,18 @@ public class PasswordCredentialsStoreServiceTest {
     private PasswordCredentialsStoreService passwordCredentialsStoreService;
 
     @Autowired
-    private MockPasswordCredentialsFactory mockPasswordCredentialsFactory;
+    private NoEncoderPasswordCredentialsFactory noEncoderPasswordCredentialsFactory;
 
     @Test
     public void create() {
         checkThrowReckuePasswordCredentialsAlreadyExists(() ->
-                passwordCredentialsStoreService.create(mockPasswordCredentialsFactory.produce())
+                passwordCredentialsStoreService.create(noEncoderPasswordCredentialsFactory.produce())
         );
     }
 
     @Test
     public void findById() {
-        PasswordCredentials expected = mockPasswordCredentialsFactory.produce();
+        PasswordCredentials expected = noEncoderPasswordCredentialsFactory.produce();
         String id = expected.getId();
         PasswordCredentials actual = passwordCredentialsStoreService.findById(id);
         assertEquals(expected, actual);
@@ -49,7 +49,7 @@ public class PasswordCredentialsStoreServiceTest {
 
     @Test
     public void delete() {
-        PasswordCredentials expected = mockPasswordCredentialsFactory.produce();
+        PasswordCredentials expected = noEncoderPasswordCredentialsFactory.produce();
         String id = expected.getId();
         PasswordCredentials actual = passwordCredentialsStoreService.deleteById(id);
         assertEquals(expected, actual);
