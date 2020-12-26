@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
         MockUuidFactory.class,
         NoEncoderPasswordCredentialsFactory.class
 })
-public class PasswordCredentialsValidatorServiceTest {
+public class PasswordCredentialsCheckerTest {
 
     @Autowired
     private PasswordCredentialsChecker passwordCredentialsChecker;
