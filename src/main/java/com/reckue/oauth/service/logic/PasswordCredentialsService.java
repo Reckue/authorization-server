@@ -18,8 +18,7 @@ import static com.reckue.oauth.factory.methods.PasswordCredentialResponseFactory
 
 @Service
 @RequiredArgsConstructor
-public class PasswordCredentialsService implements
-        GrantDelivery<AuthorizationResponse, PasswordCredentialsRequest> {
+public class PasswordCredentialsService implements GrantDelivery<AuthorizationResponse, PasswordCredentialsRequest> {
 
     private final PasswordCredentialsStoreService passwordCredentialsStoreService;
     private final AuthorizationGrantFactory authorizationGrantFactory;
