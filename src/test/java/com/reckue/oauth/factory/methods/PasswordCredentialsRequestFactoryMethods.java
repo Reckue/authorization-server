@@ -1,26 +1,45 @@
-package com.reckue.oauth.factory;
+package com.reckue.oauth.factory.methods;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reckue.oauth.model.request.PasswordCredentialsRequest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+/**
+ * Here we create static immutable models
+ * of "PasswordCredentialsRequest" class.
+ *
+ * @author Vladislav Lapshin
+ * created 26.12.2020
+ */
+public class PasswordCredentialsRequestFactoryMethods {
 
-public class PasswordCredentialsFactoryMethods {
-
+    /**
+     * Need only to create JSON string into:
+     * buildPasswordCredentialsRequestAsString()
+     * buildNullFieldsPasswordCredentialsRequestAsString()
+     */
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    private static final byte[] bytes = new byte[7];
+    /**
+     *  We fill this array using SecureRandom.
+     *  After we use filled array of random bytes
+     *  to create unique password.
+     */
+    private static final byte[] random = new byte[7];
+
+    /**
+     * Random unique password.
+     * We use it into:
+     * buildUniquePasswordCredentialsRequest()
+     */
     private static final String password;
 
     static {
-        new SecureRandom().nextBytes(bytes);
-        password = new String(bytes, StandardCharsets.UTF_8);
+        new SecureRandom().nextBytes(random);
+        password = new String(random, StandardCharsets.UTF_8);
     }
 
     public static String buildPasswordCredentialsRequestAsString() throws JsonProcessingException {
@@ -50,16 +69,5 @@ public class PasswordCredentialsFactoryMethods {
                 .username("testPasswordCredentials")
                 .email("test@mail.com")
                 .password(password).build();
-    }
-
-    public static MockHttpServletRequestBuilder buildRegisterMockRequest(String body) {
-        return post("/register")
-                .content(body)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON);
-    }
-
-    public static MockHttpServletRequestBuilder buildRegisterMockRequest() {
-        return post("/register").accept(MediaType.APPLICATION_JSON);
     }
 }
