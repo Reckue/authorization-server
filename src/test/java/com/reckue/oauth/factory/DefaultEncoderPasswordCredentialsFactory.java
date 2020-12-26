@@ -7,7 +7,7 @@ import com.reckue.oauth.model.request.PasswordCredentialsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.reckue.oauth.factory.PasswordCredentialsFactoryMethods.buildPasswordCredentialsRequest;
+import static com.reckue.oauth.factory.methods.PasswordCredentialsRequestFactoryMethods.buildPasswordCredentialsRequest;
 
 @Component
 @RequiredArgsConstructor

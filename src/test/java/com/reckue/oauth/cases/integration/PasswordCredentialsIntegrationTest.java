@@ -2,6 +2,7 @@ package com.reckue.oauth.cases.integration;
 
 import com.reckue.libs.exception.ReckueIllegalArgumentException;
 import com.reckue.oauth.controller.credentials.PasswordCredentialsController;
+import com.reckue.oauth.factory.methods.RegisterMockRequestFactoryMethods;
 import com.reckue.oauth.model.exception.credentials.PasswordCredentialsAlreadyExistsException;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
 import lombok.SneakyThrows;
@@ -12,7 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.reckue.oauth.factory.PasswordCredentialsFactoryMethods.*;
+import static com.reckue.oauth.factory.methods.PasswordCredentialsRequestFactoryMethods.buildNullFieldsPasswordCredentialsRequestAsString;
+import static com.reckue.oauth.factory.methods.PasswordCredentialsRequestFactoryMethods.buildPasswordCredentialsRequestAsString;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,13 +36,13 @@ public class PasswordCredentialsIntegrationTest {
     @SneakyThrows
     public void createSamePasswordCredentialsTwice() {
         String body = buildPasswordCredentialsRequestAsString();
-        this.mockMvc.perform(buildRegisterMockRequest(body))
+        this.mockMvc.perform(RegisterMockRequestFactoryMethods.getRegisterMockRequestBuilder(body))
                 .andExpect(status().isOk())
                 .andDo((result) -> retryCreatePasswordCredentialsRequest(body));
     }
 
     private void retryCreatePasswordCredentialsRequest(String body) throws Exception {
-        this.mockMvc.perform(buildRegisterMockRequest(body))
+        this.mockMvc.perform(RegisterMockRequestFactoryMethods.getRegisterMockRequestBuilder(body))
                 .andExpect(status().is4xxClientError())
                 .andExpect(result ->
                         assertTrue(result.getResolvedException() instanceof PasswordCredentialsAlreadyExistsException)
@@ -50,7 +52,7 @@ public class PasswordCredentialsIntegrationTest {
     @Test
     public void requestWithNullFieldsBody() throws Exception {
         String body = buildNullFieldsPasswordCredentialsRequestAsString();
-        mockMvc.perform(buildRegisterMockRequest(body))
+        mockMvc.perform(RegisterMockRequestFactoryMethods.getRegisterMockRequestBuilder(body))
                 .andExpect(status().is4xxClientError())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof ReckueIllegalArgumentException));
     }
