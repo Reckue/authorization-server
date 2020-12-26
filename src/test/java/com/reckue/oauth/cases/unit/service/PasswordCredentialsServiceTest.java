@@ -1,9 +1,10 @@
 package com.reckue.oauth.cases.unit.service;
 
+import com.reckue.oauth.factory.NoEncoderPasswordCredentialsFactory;
 import com.reckue.oauth.factory.base.PasswordEncoder;
 import com.reckue.oauth.factory.base.ReckueSaltFactory;
 import com.reckue.oauth.factory.grant.*;
-import com.reckue.oauth.factory.NoEncoderPasswordCredentialsFactory;
+import com.reckue.oauth.mock.MockJwtFactory;
 import com.reckue.oauth.mock.MockPasswordCredentialsStoreService;
 import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
@@ -14,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.reckue.oauth.factory.PasswordCredentialsFactoryMethods.buildPasswordCredentialsRequest;
+import static com.reckue.oauth.factory.methods.PasswordCredentialsRequestFactoryMethods.buildPasswordCredentialsRequest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = {
@@ -23,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         AuthorizationGrantFactory.class,
         RefreshTokenFactory.class,
         AccessTokenFactory.class,
+        MockJwtFactory.class,
         BaseClientFactory.class,
         PasswordCredentialsFactory.class,
         MockUuidFactory.class,
