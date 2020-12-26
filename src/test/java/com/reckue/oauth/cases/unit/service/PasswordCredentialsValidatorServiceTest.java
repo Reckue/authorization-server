@@ -1,6 +1,6 @@
 package com.reckue.oauth.cases.unit.service;
 
-import com.reckue.oauth.mock.MockPasswordCredentialsFactory;
+import com.reckue.oauth.factory.NoEncoderPasswordCredentialsFactory;
 import com.reckue.oauth.mock.MockPasswordCredentialsRepository;
 import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.factory.base.ExampleMatcherFactory;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
         MongoExampleFactory.class,
         ExampleMatcherFactory.class,
         MockUuidFactory.class,
-        MockPasswordCredentialsFactory.class
+        NoEncoderPasswordCredentialsFactory.class
 })
 public class PasswordCredentialsValidatorServiceTest {
 
@@ -28,18 +28,18 @@ public class PasswordCredentialsValidatorServiceTest {
     private PasswordCredentialsChecker passwordCredentialsChecker;
 
     @Autowired
-    private MockPasswordCredentialsFactory mockPasswordCredentialsFactory;
+    private NoEncoderPasswordCredentialsFactory noEncoderPasswordCredentialsFactory;
 
     @Test
     public void existsPasswordCredentials() {
-        PasswordCredentials passwordCredentials = mockPasswordCredentialsFactory.produce();
+        PasswordCredentials passwordCredentials = noEncoderPasswordCredentialsFactory.produce();
         boolean exists = passwordCredentialsChecker.exists(passwordCredentials);
         assertTrue(exists);
     }
 
     @Test
     public void passwordCredentialsAlreadyExists() {
-        PasswordCredentials passwordCredentials = mockPasswordCredentialsFactory.produce();
+        PasswordCredentials passwordCredentials = noEncoderPasswordCredentialsFactory.produce();
         checkThrowReckuePasswordCredentialsAlreadyExists(() ->
                 passwordCredentialsChecker.checkAlreadyExists(passwordCredentials)
         );
@@ -47,7 +47,7 @@ public class PasswordCredentialsValidatorServiceTest {
 
     @Test
     public void passwordCredentialsAlreadyExistsButWeChangePassword() {
-        PasswordCredentials passwordCredentials = mockPasswordCredentialsFactory.produce();
+        PasswordCredentials passwordCredentials = noEncoderPasswordCredentialsFactory.produce();
         passwordCredentials.setPassword("2222");
         assertDoesNotThrow(() -> passwordCredentialsChecker.checkAlreadyExists(passwordCredentials));
     }

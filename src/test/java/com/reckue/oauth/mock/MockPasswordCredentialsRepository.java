@@ -1,5 +1,6 @@
 package com.reckue.oauth.mock;
 
+import com.reckue.oauth.factory.NoEncoderPasswordCredentialsFactory;
 import com.reckue.oauth.factory.base.MongoExampleFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
@@ -14,16 +15,16 @@ import static org.mockito.Mockito.*;
 @RequiredArgsConstructor
 public class MockPasswordCredentialsRepository {
 
-    private final MockPasswordCredentialsFactory mockPasswordCredentialsFactory;
+    private final NoEncoderPasswordCredentialsFactory noEncoderPasswordCredentialsFactory;
 
     private final MongoExampleFactory<PasswordCredentials> mongoExampleFactory;
 
     @Bean
     public PasswordCredentialsRepository getPasswordCredentialsRepository() {
         PasswordCredentialsRepository repository = mock(PasswordCredentialsRepository.class);
-        mockExistsMethod(repository, mockPasswordCredentialsFactory.produce());
-        mockFindByIdMethod(repository, mockPasswordCredentialsFactory.produce());
-        mockDeleteByIdMethod(repository, mockPasswordCredentialsFactory.produce());
+        mockExistsMethod(repository, noEncoderPasswordCredentialsFactory.produce());
+        mockFindByIdMethod(repository, noEncoderPasswordCredentialsFactory.produce());
+        mockDeleteByIdMethod(repository, noEncoderPasswordCredentialsFactory.produce());
         return repository;
     }
 

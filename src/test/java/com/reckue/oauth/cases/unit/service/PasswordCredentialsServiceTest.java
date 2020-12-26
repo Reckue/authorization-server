@@ -3,7 +3,7 @@ package com.reckue.oauth.cases.unit.service;
 import com.reckue.oauth.factory.base.PasswordEncoder;
 import com.reckue.oauth.factory.base.ReckueSaltFactory;
 import com.reckue.oauth.factory.grant.*;
-import com.reckue.oauth.mock.MockPasswordCredentialsFactory;
+import com.reckue.oauth.factory.NoEncoderPasswordCredentialsFactory;
 import com.reckue.oauth.mock.MockPasswordCredentialsStoreService;
 import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         MockUuidFactory.class,
         PasswordEncoder.class,
         ReckueSaltFactory.class,
-        MockPasswordCredentialsFactory.class
+        NoEncoderPasswordCredentialsFactory.class
 })
 public class PasswordCredentialsServiceTest {
 
@@ -39,7 +39,7 @@ public class PasswordCredentialsServiceTest {
     private BaseClientFactory baseClientFactory;
 
     @Autowired
-    private MockPasswordCredentialsFactory mockPasswordCredentialsFactory;
+    private NoEncoderPasswordCredentialsFactory noEncoderPasswordCredentialsFactory;
 
     @Test
     public void successfullyRegistered() {
@@ -58,7 +58,7 @@ public class PasswordCredentialsServiceTest {
     }
 
     public PasswordCredentialsResponse buildPasswordCredentialsResponse() {
-        PasswordCredentials passwordCredentials = mockPasswordCredentialsFactory.produce();
+        PasswordCredentials passwordCredentials = noEncoderPasswordCredentialsFactory.produce();
         return PasswordCredentialsResponse.builder()
                 .id(passwordCredentials.getId())
                 .email(passwordCredentials.getEmail())
