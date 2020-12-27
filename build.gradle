@@ -1,7 +1,8 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.2.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.springframework.boot' version '2.3.6.RELEASE'
+    id "io.spring.dependency-management" version "1.0.10.RELEASE"
     id 'java'
+    id 'maven'
 }
 
 group = 'com.reckue'
@@ -10,29 +11,36 @@ sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
+    maven {
+        name = "ReckuePackages"
+        url = uri("https://maven.pkg.github.com/Reckue/exception-libs")
+        credentials {
+            username = "Hardelele"
+            password = "66a2201aa996af6a7ad62e839b8ce489965e3159"
+        }
+    }
 }
 
 dependencies {
+
+    implementation 'com.reckue:exception-libs:1.0.2'
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     /* database */
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.mongodb:mongo-java-driver:3.12.0'
 
-    /* security */
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-
     /* jwt */
-    implementation 'javax.xml.bind:jaxb-api:2.3.0' // for binding xml
+    implementation 'com.auth0:java-jwt:3.11.0'
 
     /* data mapping */
     implementation 'net.sf.dozer:dozer:5.5.1'
 
     /* swagger */
-    implementation 'io.springfox:springfox-swagger2:2.9.2'
-    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
 
-    /* lombok */
+    /* code generators */
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
@@ -43,11 +51,12 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.2.2.RELEASE'
 
     /* test */
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.h2database:h2:1.4.200'
-    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0'
-    testImplementation 'org.testng:testng:7.1.0'
-    testImplementation 'org.springframework.security:spring-security-test'
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 }
 
 def profile = "dev"
@@ -56,3 +65,19 @@ bootRun {
     args = ["--spring.profiles.active=" + profile]
 }
 
+/* ----------[ test ]---------- */
+test {
+    useJUnitPlatform()
+    exclude 'com/reckue/oauth/sandbox'
+}
+
+task sandbox(type: Test) {
+    useJUnitPlatform()
+    include 'com/reckue/oauth/sandbox/Sandbox.class'
+}
+
+configure(sandbox) {
+    group 'sandbox'
+    // Watch package com.reckue.oauth in test/java dir.
+    description = 'Execute Sandbox test class ';
+}
