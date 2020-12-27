@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.6.RELEASE'
     id "io.spring.dependency-management" version "1.0.10.RELEASE"
     id 'java'
+    id 'maven'
 }
 
 group = 'com.reckue'
@@ -10,9 +11,19 @@ sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
+    maven {
+        name = "ReckuePackages"
+        url = uri("https://maven.pkg.github.com/Reckue/exception-libs")
+        credentials {
+            username = "Hardelele"
+            password = "66a2201aa996af6a7ad62e839b8ce489965e3159"
+        }
+    }
 }
 
 dependencies {
+
+    implementation 'com.reckue:exception-libs:1.0.2'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 

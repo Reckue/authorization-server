@@ -1,6 +1,6 @@
-package com.reckue.oauth.cases.service;
+package com.reckue.oauth.cases.unit.service;
 
-import com.reckue.oauth.factory.PasswordCredentialsFactory;
+import com.reckue.oauth.factory.NoEncoderPasswordCredentialsFactory;
 import com.reckue.oauth.mock.MockPasswordCredentialsRepository;
 import com.reckue.oauth.mock.MockUuidFactory;
 import com.reckue.oauth.factory.base.ExampleMatcherFactory;
@@ -20,35 +20,35 @@ import static org.junit.jupiter.api.Assertions.*;
         MongoExampleFactory.class,
         ExampleMatcherFactory.class,
         MockUuidFactory.class,
-        PasswordCredentialsFactory.class
+        NoEncoderPasswordCredentialsFactory.class
 })
-public class PasswordCredentialsValidatorServiceTest {
+public class PasswordCredentialsCheckerTest {
 
     @Autowired
-    private PasswordCredentialsChecker passwordCredentialsValidatorService;
+    private PasswordCredentialsChecker passwordCredentialsChecker;
 
     @Autowired
-    private PasswordCredentialsFactory passwordCredentialsFactory;
+    private NoEncoderPasswordCredentialsFactory noEncoderPasswordCredentialsFactory;
 
     @Test
     public void existsPasswordCredentials() {
-        PasswordCredentials passwordCredentials = passwordCredentialsFactory.produce();
-        boolean exists = passwordCredentialsValidatorService.exists(passwordCredentials);
+        PasswordCredentials passwordCredentials = noEncoderPasswordCredentialsFactory.produce();
+        boolean exists = passwordCredentialsChecker.exists(passwordCredentials);
         assertTrue(exists);
     }
 
     @Test
     public void passwordCredentialsAlreadyExists() {
-        PasswordCredentials passwordCredentials = passwordCredentialsFactory.produce();
+        PasswordCredentials passwordCredentials = noEncoderPasswordCredentialsFactory.produce();
         checkThrowReckuePasswordCredentialsAlreadyExists(() ->
-                passwordCredentialsValidatorService.checkAlreadyExists(passwordCredentials)
+                passwordCredentialsChecker.checkAlreadyExists(passwordCredentials)
         );
     }
 
     @Test
     public void passwordCredentialsAlreadyExistsButWeChangePassword() {
-        PasswordCredentials passwordCredentials = passwordCredentialsFactory.produce();
+        PasswordCredentials passwordCredentials = noEncoderPasswordCredentialsFactory.produce();
         passwordCredentials.setPassword("2222");
-        assertDoesNotThrow(() -> passwordCredentialsValidatorService.checkAlreadyExists(passwordCredentials));
+        assertDoesNotThrow(() -> passwordCredentialsChecker.checkAlreadyExists(passwordCredentials));
     }
 }

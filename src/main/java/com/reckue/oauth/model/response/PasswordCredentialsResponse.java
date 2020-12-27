@@ -11,5 +11,4 @@ public class PasswordCredentialsResponse implements Credentials {
     String id;
     String email;
     String username;
-    String password;
 }

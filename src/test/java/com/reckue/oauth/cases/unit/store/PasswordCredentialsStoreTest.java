@@ -1,10 +1,10 @@
-package com.reckue.oauth.cases.store;
+package com.reckue.oauth.cases.unit.store;
 
-import com.reckue.oauth.factory.PasswordCredentialsFactory;
+import com.reckue.oauth.factory.NoEncoderPasswordCredentialsFactory;
 import com.reckue.oauth.factory.base.MongoExampleFactory;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
-import com.reckue.oauth.service.store.PasswordCredentialsStoreService;
+import com.reckue.oauth.service.store.impl.PasswordCredentialsStoreService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,11 +25,11 @@ public class PasswordCredentialsStoreTest {
     private MongoExampleFactory<PasswordCredentials> mongoExampleFactory;
 
     @Autowired
-    private PasswordCredentialsFactory passwordCredentialsFactory;
+    private NoEncoderPasswordCredentialsFactory noEncoderPasswordCredentialsFactory;
 
     @Test
     public void createPasswordCredentials() {
-        PasswordCredentials passwordCredentials = passwordCredentialsFactory.produce();
+        PasswordCredentials passwordCredentials = noEncoderPasswordCredentialsFactory.produce();
         long count = passwordCredentialsRepository.count(mongoExampleFactory.produce(passwordCredentials));
         if (count > 0) {
             checkThrowReckuePasswordCredentialsAlreadyExists(() ->

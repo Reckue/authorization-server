@@ -1,4 +1,4 @@
-package com.reckue.oauth.service;
+package com.reckue.oauth.service.check;
 
 public interface StoreChecker<T> {
 

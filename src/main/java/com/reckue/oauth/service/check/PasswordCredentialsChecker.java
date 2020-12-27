@@ -1,9 +1,9 @@
 package com.reckue.oauth.service.check;
 
 import com.reckue.oauth.factory.base.MongoExampleFactory;
+import com.reckue.oauth.model.exception.credentials.PasswordCredentialsAlreadyExistsException;
 import com.reckue.oauth.model.internal.PasswordCredentials;
 import com.reckue.oauth.repository.PasswordCredentialsRepository;
-import com.reckue.oauth.service.StoreChecker;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class PasswordCredentialsChecker implements StoreChecker<PasswordCredenti
     @Override
     public void checkAlreadyExists(PasswordCredentials entity) {
         if (this.exists(entity)) {
-            throw new RuntimeException("Password credentials already exists.");
+            throw new PasswordCredentialsAlreadyExistsException();
         }
     }
 }
